@@ -1,0 +1,51 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h3>Create new post</h3>
+  
+  <div 
+    class="form-control"
+    [ngClass]="{invalid: titleField?.touched && titleField?.invalid}">
+    <label for="title">Title</label>
+    <input formControlName="title" id="title" type="text">
+    <small 
+      class="validation" 
+      *ngIf="titleField?.touched && titleField?.invalid">
+      {{formService.getErrorMessage(titleField)}}
+    </small>
+  </div>
+
+  <div 
+    class="form-control"
+    [ngClass]="{invalid: authorField?.touched && authorField?.invalid}">
+    <label for="author">Author</label>
+    <input formControlName="author" id="author" type="text">
+    <small 
+      class="validation" 
+      *ngIf="authorField?.touched && authorField?.invalid">
+      {{formService.getErrorMessage(authorField)}}
+    </small>
+  </div>
+
+  <div class="form-control">
+    <label>Content</label>
+    <quill-editor [styles]="quillStyles" formControlName="content"></quill-editor>
+    <small 
+      class="validation" 
+      *ngIf="contentField?.touched && contentField?.invalid">
+      {{formService.getErrorMessage(contentField)}}
+    </small>
+  </div>
+
+  <div class="submit">
+    <button 
+      class="btn btn-dark "
+      type="submit"
+      [disabled]="form.touched && form.invalid || submitting">
+      <span *ngIf="!submitting else: loader">Create post</span>
+      <ng-template #loader>
+        <div class="btn-loader">          
+          <app-loader></app-loader>
+        </div>
+      </ng-template>
+    </button>
+  </div>
+</form>

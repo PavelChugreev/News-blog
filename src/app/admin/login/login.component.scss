@@ -1,0 +1,19 @@
+.card, .error {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+
+  .title {
+    margin-bottom: 0.5rem;
+  }
+
+  .submit {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+
+    .btn {
+      width: 150px;
+    }
+  }
+}

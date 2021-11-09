@@ -1,18 +1,54 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { EditComponent } from './admin/edit/edit.component';
+import { CreateComponent } from './admin/create/create.component';
+import { LoginComponent } from './admin/login/login.component';
+import { MainComponent } from './main/main.component';
+import { PostsComponent } from './main/posts/posts.component';
+import { HomeComponent } from './main/home/home.component';
+import { AdminComponent } from './admin/admin.component';
+import { PostComponent } from './main/posts/post/post.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderComponent } from './shared/components/loader/loader.component';
+import { QuillModule } from 'ngx-quill'
+import { AuthInterceptor } from './shared/services/auth.intercepror';
+
+const INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  multi: true,
+  useClass: AuthInterceptor
+}
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainComponent,
+    HomeComponent,
+    PostsComponent,
+    DashboardComponent,
+    EditComponent,
+    CreateComponent,
+    LoginComponent,
+    AdminComponent,
+    MainComponent,
+    PostsComponent,
+    HomeComponent,
+    PostComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    QuillModule.forRoot()
   ],
-  providers: [],
+  providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

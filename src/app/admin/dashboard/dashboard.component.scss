@@ -1,0 +1,37 @@
+.dashboard {
+  width: 100%;
+  border-collapse: collapse;
+
+  .header, .post {
+    display: grid;
+    grid-template-columns: 1fr 3fr 5fr 3fr 3fr;
+    gap: 5px;
+    align-items: center;
+    justify-items: center;
+    padding: 1rem;
+  }
+
+  .header {
+    background-color: rgb(221, 221, 221);
+    border: 1px solid rgb(112, 112, 112);
+    border-radius: 7px 7px 0 0 ;
+  }
+
+  .posts {
+    .post {
+      border: 1px solid rgb(204, 204, 204);
+      border-top: none;
+      &:last-child {
+        border-radius: 0 0 7px 7px;
+      }
+      .post__actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 5px;
+        button {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

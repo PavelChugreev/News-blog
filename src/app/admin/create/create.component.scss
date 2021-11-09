@@ -1,0 +1,18 @@
+form {
+  width: 800px;
+  margin: 0 auto;
+
+  .ql-editor {
+    height: 100% !important;
+  }
+
+  .submit {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+
+    .btn {
+      width: 150px;
+    }
+  }
+}

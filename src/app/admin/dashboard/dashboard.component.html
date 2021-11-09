@@ -1,0 +1,22 @@
+<div *ngIf="posts.length; else spinner" class="dashboard">
+  <div class="header">
+    <div *ngFor="let title of titles" class="header__item">{{title}}</div>
+  </div>
+  <div class="posts">
+    <div *ngFor="let post of posts; let i = index" class="post">
+      <div class="post__id">{{i + 1}}</div>
+      <div class="post__author">{{post.author}}</div>
+      <div class="post__title">{{post.title}}</div>
+      <div class="post__date">{{post.date | date: "medium"}}</div>
+      <div class="post__actions">
+        <button
+          routerLink="/admin/posts/{{post.id}}/edit"
+          class="btn btn-dark">Edit</button>
+        <button class="btn btn-primary">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+ <ng-template #spinner>
+   <app-loader size="lg"></app-loader>
+ </ng-template>

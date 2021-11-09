@@ -1,0 +1,63 @@
+.sm {
+  width: 24px;
+  height: 24px;
+}
+.md {
+  width: 36px;
+  height: 36px;
+}
+.lg {
+  width: 48px;
+  height: 48px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.spinner {
+  display: block;
+  animation: rotate 2s linear infinite ;
+
+  .spinner__fill, .spinner__dash {
+    fill: transparent;
+    stroke-width: 4;
+  }
+
+  .spinner__fill {
+    stroke: #5d5d5d;
+  }
+
+  .spinner__dash {
+    stroke: #bbbbbb;;
+    stroke-linecap: round;
+    stroke-dasharray: 80px 200px;
+    stroke-dashoffset: 0;
+    animation: dash 2s ease-in-out infinite ;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform-origin: 50% 50%;
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1px 200px;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 100px 200px;
+    stroke-dashoffset: -15px;
+  }
+  100% {
+    stroke-dasharray: 80px 200px;
+    stroke-dashoffset: -125px;
+  }
+}

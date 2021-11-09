@@ -1,0 +1,53 @@
+<form class="card" [formGroup]="form" (submit)="submit()">
+  <h2 class="title">Login Administrator panel</h2>
+  <div 
+    *ngIf="alert"
+    class="alert alert-info">{{alert}}</div>
+  
+  <div 
+    class="form-control"
+    [ngClass]="{invalid: emailField?.touched && emailField?.invalid}">
+    <label for="email">Email</label>
+    <input formControlName="email" id="email" type="email">
+    <small 
+      class="validation" 
+      *ngIf="emailField?.touched && emailField?.invalid">
+      {{formService.getErrorMessage(emailField)}}
+    </small>
+  </div>
+
+  <div 
+    class="form-control"
+    [ngClass]="{invalid: passwordField?.touched && passwordField?.invalid}">
+    <label for="password">Password</label>
+    <input formControlName="password" id="password" type="password">
+    <small 
+      class="validation" 
+      *ngIf="passwordField?.touched && passwordField?.invalid">
+      {{formService.getErrorMessage(passwordField)}}
+    </small>
+  </div>
+
+  <div class="submit">
+    <button 
+      class="btn btn-primary "
+      type="submit"
+      [disabled]="form.touched && form.invalid || submitting">
+      <span *ngIf="!submitting else: loader">Login</span>
+      <ng-template #loader>
+        <div class="btn-loader">          
+          <app-loader ></app-loader>
+        </div>
+      </ng-template>
+    </button>
+  </div>
+</form>
+<div 
+  *ngIf="authService.error$ | async as error"
+  class="alert alert-danger error">
+  {{error}}
+</div>
+
+
+
+
