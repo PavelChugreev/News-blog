@@ -1,1 +1,39 @@
-<p>edit works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h3>Edit posts {{order}}  {{id}}</h3>
+  
+  <div 
+    class="form-control"
+    [ngClass]="{invalid: titleField?.touched && titleField?.invalid}">
+    <label for="title">Title</label>
+    <input formControlName="title" id="title" type="text">
+    <small 
+      class="validation" 
+      *ngIf="titleField?.touched && titleField?.invalid">
+      {{formService.getErrorMessage(titleField)}}
+    </small>
+  </div>
+
+  <div class="form-control">
+    <label>Content</label>
+    <quill-editor [styles]="quillStyles" formControlName="content"></quill-editor>
+    <small 
+      class="validation" 
+      *ngIf="contentField?.touched && contentField?.invalid">
+      {{formService.getErrorMessage(contentField)}}
+    </small>
+  </div>
+
+  <div class="submit">
+    <button 
+      class="btn btn-dark "
+      type="submit"
+      [disabled]="form.touched && form.invalid || submitting">
+      <span *ngIf="!submitting else: loader">Save changes</span>
+      <ng-template #loader>
+        <div class="btn-loader">          
+          <app-loader></app-loader>
+        </div>
+      </ng-template>
+    </button>
+  </div>
+</form>

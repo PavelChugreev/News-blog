@@ -1,9 +1,19 @@
-<div *ngIf="posts.length; else spinner" class="dashboard">
+
+<div *ngIf="posts; else spinner" class="dashboard">
+  <div class="form-control">  
+    <input type="text" placeholder="Search" [(ngModel)]="searchStr">
+  </div>
   <div class="header">
     <div *ngFor="let title of titles" class="header__item">{{title}}</div>
   </div>
+  <div *ngIf="!posts.length" class="empty">
+    <h4>Post list is empty</h4>
+    <button
+      routerLink="/admin/create"
+      class="btn btn-dark">Create post</button>
+  </div>
   <div class="posts">
-    <div *ngFor="let post of posts; let i = index" class="post">
+    <div *ngFor="let post of posts | searchPosts:searchStr; let i = index" class="post">
       <div class="post__id">{{i + 1}}</div>
       <div class="post__author">{{post.author}}</div>
       <div class="post__title">{{post.title}}</div>
@@ -11,8 +21,18 @@
       <div class="post__actions">
         <button
           routerLink="/admin/posts/{{post.id}}/edit"
+          [queryParams]="{order: i + 1}"
           class="btn btn-dark">Edit</button>
-        <button class="btn btn-primary">Delete</button>
+        <button 
+          class="btn btn-primary"
+          (click)="delete(post.id, i)"
+          [disabled]="loading[i]">
+          <span *ngIf="!loading[i] else: loader">Delete</span>
+          <ng-template #loader>
+            <div class="btn-loader">          
+              <app-loader></app-loader>
+            </div>
+          </ng-template></button>
       </div>
     </div>
   </div>

@@ -12,11 +12,12 @@ import { PostsComponent } from './main/posts/posts.component';
 import { HomeComponent } from './main/home/home.component';
 import { AdminComponent } from './admin/admin.component';
 import { PostComponent } from './main/posts/post/post.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { QuillModule } from 'ngx-quill'
 import { AuthInterceptor } from './shared/services/auth.intercepror';
+import { searchPosts } from './shared/pipes/search-posts.pipe';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -39,12 +40,14 @@ const INTERCEPTOR_PROVIDER: Provider = {
     PostsComponent,
     HomeComponent,
     PostComponent,
-    LoaderComponent
+    LoaderComponent,
+    searchPosts
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     QuillModule.forRoot()
   ],

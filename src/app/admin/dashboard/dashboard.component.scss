@@ -2,7 +2,7 @@
   width: 100%;
   border-collapse: collapse;
 
-  .header, .post {
+  .header, .post, .empty {
     display: grid;
     grid-template-columns: 1fr 3fr 5fr 3fr 3fr;
     gap: 5px;
@@ -15,6 +15,14 @@
     background-color: rgb(221, 221, 221);
     border: 1px solid rgb(112, 112, 112);
     border-radius: 7px 7px 0 0 ;
+  }
+
+  .empty {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    border: 1px solid rgb(204, 204, 204);
+    border-top: none;
   }
 
   .posts {
