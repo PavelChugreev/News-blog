@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { finalize, tap } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/interfaces';
 import { FormService } from 'src/app/shared/services/Form.service';
 import { PostService } from 'src/app/shared/services/Post.service';
@@ -25,7 +27,8 @@ export class CreateComponent implements OnInit {
   
   constructor(
     public formService: FormService,
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ) { }
 
   get titleField () {
@@ -43,10 +46,11 @@ export class CreateComponent implements OnInit {
 
   submit () {
     if(this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
-    // this.submitting = true;
+    this.submitting = true;
 
     const post: IPost = {
       title: this.titleField?.value,
@@ -55,8 +59,13 @@ export class CreateComponent implements OnInit {
       date: new Date()
     }
     
-    this.postService.createPost(post).subscribe(res => console.log(res))
-    
-  }
+    this.postService.createPost(post)
+      .pipe(
+        finalize(() => this.submitting = false)
+      )
+      .subscribe(() => {
+        this.router.navigate(['admin/dashboard'])
+      })
 
+  }
 }

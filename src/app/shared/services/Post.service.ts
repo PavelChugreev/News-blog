@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable } from "rxjs";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { environment as env } from "src/environments/environment";
 import { IFbPostResponse, IPost } from "../interfaces/interfaces";
 
@@ -24,10 +25,13 @@ export class PostService {
       }))
   }
 
-  getAllPosts (): Observable<IPost[]> {
+  getAllPosts (): Observable<IPost[] | null> {
     return this.http.get(`${env.dbUrl}/posts.json`)
     .pipe(
-      map((res: {[key: string]: any}) => {
+      map((res: {[key: string]: any} | null) => {
+        if (!res) {
+          return null;
+        }
         return Object.keys(res).map((key) => ({
             ...res[key],
             id: key,
@@ -36,5 +40,29 @@ export class PostService {
         )
       })
     )
+  }
+
+  getPostById (id: string): Observable<IPost | null> {
+    return this.http.get<IPost | null>(`${env.dbUrl}/posts/${id}.json`)
+      .pipe(
+        map((post): IPost | null => {
+          if(!post) {
+            return null;
+          }
+          return {
+            ...post,
+            id,
+            // date: new Date(post.date)
+          }
+        })
+      )
+  }
+
+  editPost (post: IPost): Observable<IPost | null> {
+    return this.http.patch<IPost | null>(`${env.dbUrl}/posts/${post.id}.json`, post);
+  }
+
+  deletePost (id: string): Observable<void> {
+    return this.http.delete<void>(`${env.dbUrl}/posts/${id}.json`);
   }
 }

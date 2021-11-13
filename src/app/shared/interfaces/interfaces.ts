@@ -5,7 +5,7 @@ export interface IUser {
 }
 
 export interface IPost {
-  id?: number;
+  id?: string;
   title: string;
   author: string;
   content: string;
