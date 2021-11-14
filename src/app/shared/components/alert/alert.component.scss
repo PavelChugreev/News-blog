@@ -1,0 +1,21 @@
+.alert__success {
+  background-color: #75c290;
+}
+.alert__warning {
+  background-color: #f9c672;
+}
+.alert__danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+.alert__close {
+  position: absolute;
+  padding: 0 10px;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(200, 200, 200, 0.493);
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}

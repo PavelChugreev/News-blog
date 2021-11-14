@@ -1,5 +1,8 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <h3>Edit posts {{order}}  {{id}}</h3>
+<form
+  *ngIf="!loading; else: loader_lg"
+  [formGroup]="form"
+  (ngSubmit)="submit()">
+  <h3 class="form__title">Edit posts №{{order}}</h3>
   
   <div 
     class="form-control"
@@ -25,15 +28,23 @@
 
   <div class="submit">
     <button 
-      class="btn btn-dark "
+      class="btn btn-dark submit__btn"
       type="submit"
       [disabled]="form.touched && form.invalid || submitting">
-      <span *ngIf="!submitting else: loader">Save changes</span>
-      <ng-template #loader>
-        <div class="btn-loader">          
-          <app-loader></app-loader>
-        </div>
-      </ng-template>
+      <span *ngIf="!submitting else: loader_sm">Save changes</span>
+    </button>
+
+    <button 
+      class="btn btn-light"
+      routerLink="/admin/dashboard">
+      Cancel
     </button>
   </div>
 </form>
+
+<ng-template #loader_lg>
+  <app-loader size="lg"></app-loader>
+</ng-template>
+<ng-template #loader_sm>         
+ <app-loader></app-loader>
+</ng-template>

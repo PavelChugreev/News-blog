@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { finalize, tap } from 'rxjs';
+import { finalize } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/interfaces';
+import { AlertService } from 'src/app/shared/services/alert.service';
 import { FormService } from 'src/app/shared/services/Form.service';
 import { PostService } from 'src/app/shared/services/Post.service';
 
@@ -28,6 +29,7 @@ export class CreateComponent implements OnInit {
   constructor(
     public formService: FormService,
     private postService: PostService,
+    private alertService: AlertService,
     private router: Router
   ) { }
 
@@ -64,8 +66,9 @@ export class CreateComponent implements OnInit {
         finalize(() => this.submitting = false)
       )
       .subscribe(() => {
-        this.router.navigate(['admin/dashboard'])
+        this.form.reset();
+        this.alertService.open('Post created successfully');
+        this.router.navigate(['admin/dashboard']);
       })
-
   }
 }

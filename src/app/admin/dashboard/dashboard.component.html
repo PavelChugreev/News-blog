@@ -1,5 +1,5 @@
 
-<div *ngIf="posts; else spinner" class="dashboard">
+<div *ngIf="posts; else loader_lg" class="dashboard">
   <div class="form-control">  
     <input type="text" placeholder="Search" [(ngModel)]="searchStr">
   </div>
@@ -20,23 +20,26 @@
       <div class="post__date">{{post.date | date: "medium"}}</div>
       <div class="post__actions">
         <button
+          class="btn btn-dark"
           routerLink="/admin/posts/{{post.id}}/edit"
           [queryParams]="{order: i + 1}"
-          class="btn btn-dark">Edit</button>
+          [disabled]="loading[i]">
+          Edit
+        </button>
         <button 
-          class="btn btn-primary"
+          class="btn btn-primary btn-del"
           (click)="delete(post.id, i)"
           [disabled]="loading[i]">
-          <span *ngIf="!loading[i] else: loader">Delete</span>
-          <ng-template #loader>
-            <div class="btn-loader">          
-              <app-loader></app-loader>
-            </div>
-          </ng-template></button>
+          <span *ngIf="!loading[i] else: loader_sm">Delete</span>
+        </button>
       </div>
     </div>
   </div>
 </div>
- <ng-template #spinner>
+
+ <ng-template #loader_lg>
    <app-loader size="lg"></app-loader>
  </ng-template>
+ <ng-template #loader_sm>         
+  <app-loader></app-loader>
+</ng-template>

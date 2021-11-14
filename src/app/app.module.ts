@@ -18,6 +18,8 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { QuillModule } from 'ngx-quill'
 import { AuthInterceptor } from './shared/services/auth.intercepror';
 import { searchPosts } from './shared/pipes/search-posts.pipe';
+import { AlertComponent } from './shared/components/alert/alert.component';
+import { AlertService } from './shared/services/alert.service';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -41,7 +43,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     HomeComponent,
     PostComponent,
     LoaderComponent,
-    searchPosts
+    searchPosts,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,10 @@ const INTERCEPTOR_PROVIDER: Provider = {
     HttpClientModule,
     QuillModule.forRoot()
   ],
-  providers: [INTERCEPTOR_PROVIDER],
+  providers: [
+    INTERCEPTOR_PROVIDER,
+    AlertService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
