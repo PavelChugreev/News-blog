@@ -21,6 +21,21 @@ export interface IFbAuthResponse {
   idToken: string;
   expiresIn: string;
 }
+
 export interface IFbPostResponse {
   name: string;
 }
+
+export interface IAlert {
+  text?: string;
+  type?: AlertType;
+  open: boolean;
+}
+
+export enum AlertTypes {
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  DANGER = 'danger',
+}
+
+export type AlertType = AlertTypes.SUCCESS | AlertTypes.WARNING | AlertTypes.DANGER;

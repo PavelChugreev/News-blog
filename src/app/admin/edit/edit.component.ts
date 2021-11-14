@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { finalize, Subscription, switchMap } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/interfaces';
+import { AlertService } from 'src/app/shared/services/alert.service';
 import { FormService } from 'src/app/shared/services/Form.service';
 import { PostService } from 'src/app/shared/services/Post.service';
 
@@ -24,13 +25,14 @@ export class EditComponent implements OnInit, OnDestroy {
     overflowY: "scroll"
   }
   public submitting: boolean = false;
+  public loading: boolean = false;
   public order: string = '';
-  public id: string = '';
   private editSub: Subscription = new Subscription;
 
   constructor(
     public formService: FormService,
     private postSrvice: PostService,
+    private alertService: AlertService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -44,6 +46,8 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loading = true;
+
     this.route.queryParams.subscribe((params: Params) => {
       this.order = params['order'];
     })
@@ -51,7 +55,8 @@ export class EditComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(
         switchMap((params: Params) => {
-          return this.postSrvice.getPostById(params['id']);
+          return this.postSrvice.getPostById(params['id'])
+            .pipe(finalize(() => this.loading = false));
         })
       )
       .subscribe((post: IPost | null) => {
@@ -82,6 +87,8 @@ export class EditComponent implements OnInit, OnDestroy {
       finalize(() => this.submitting = false)
     )
     .subscribe(() => {
+      this.form.reset();
+      this.alertService.open('Changes saved successfully');
       this.router.navigate(['/admin/dashboard']);
     })
   }

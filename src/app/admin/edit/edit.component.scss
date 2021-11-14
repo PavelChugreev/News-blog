@@ -1,0 +1,11 @@
+
+.form__title {
+  margin-bottom: 1.5rem;
+}
+.submit {
+  display: flex;
+
+  &__btn {
+    min-width: 140px;
+  }
+}

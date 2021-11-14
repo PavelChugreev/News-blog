@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { finalize, Subscription } from 'rxjs';
-import { IPost } from 'src/app/shared/interfaces/interfaces';
+import { AlertTypes, IPost } from 'src/app/shared/interfaces/interfaces';
+import { AlertService } from 'src/app/shared/services/alert.service';
 import { PostService } from 'src/app/shared/services/Post.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public loading: {[key: number]: boolean} = {};
 
   constructor (
-    private postService: PostService
+    private postService: PostService,
+    private alertService: AlertService
   ){}
 
   ngOnInit(): void {
@@ -41,8 +43,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.loading[idx] = true;
 
     this.delSub = this.postService.deletePost(id)
-      .pipe(finalize(() => this.loading[idx] = false))
+      .pipe(
+        finalize(() => {
+          this.loading[idx] = false;
+        })
+      )
       .subscribe(() => {
+        this.alertService.open('Post deleted successfully', AlertTypes.DANGER);
         this.posts = this.posts && this.posts.filter((_, i) => i !== idx);
       })
   }

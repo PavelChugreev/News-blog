@@ -5,7 +5,7 @@
 :root {
   --primary-color: #dc3545;
   --dark-color: #333333;
-  --light-color: #f4f4f4;
+  --light-color: #eeeeee;
   --danger-color: #dc3545;
   --success-color: #28a745;
 }
@@ -148,11 +148,19 @@ img {
 }
 
 .alert {
-  padding: 0.7rem;
-  margin: 1rem 0;
-  opacity: 0.9;
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
+  border-radius: 5px;
   background: var(--light-color);
   color: #333;
+  z-index: 1600;
 }
 
 .btn-primary,
