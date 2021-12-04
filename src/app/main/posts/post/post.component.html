@@ -1,20 +1,21 @@
-<div class="post">
+<div *ngIf="post$ | async as post; else loader_lg" class="post">
   <div class="header">
-    <h1>Post title</h1>
+    <h1>{{post.title}}</h1>
     <button
       class="btn btn-dark"
       routerLink="/">Home</button>
   </div>
 
   <div class="info">
-    <strong>Author</strong>
-    <small>date</small>
+    <strong>Author: {{post.author}}</strong>
+    <small>{{post.date | date: 'd MMMM yyyy, H:mm'}}</small>
   </div>
 
   <div>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis iusto, facere ex dolorem aperiam hic impedit sed architecto, voluptate deserunt libero quos, inventore consectetur commodi dicta. Sunt ducimus distinctio id.</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis iusto, facere ex dolorem aperiam hic impedit sed architecto, voluptate deserunt libero quos, inventore consectetur commodi dicta. Sunt ducimus distinctio id.</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis iusto, facere ex dolorem aperiam hic impedit sed architecto, voluptate deserunt libero quos, inventore consectetur commodi dicta. Sunt ducimus distinctio id.</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis iusto, facere ex dolorem aperiam hic impedit sed architecto, voluptate deserunt libero quos, inventore consectetur commodi dicta. Sunt ducimus distinctio id.</p>
+    <quill-view-html content="post.content"></quill-view-html>
   </div>
 </div>
+
+<ng-template #loader_lg>
+  <app-loader size="lg"></app-loader>
+</ng-template>

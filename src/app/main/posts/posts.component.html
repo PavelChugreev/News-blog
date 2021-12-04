@@ -1,14 +1,17 @@
-<div class="card">
-  <div class="card-header">
-    <h2>Post title</h2>
-    <small>12/09/2022</small>
+<div *ngIf="posts; else loader_lg" class="posts">
+  <div *ngFor="let post of posts" class="card">
+    <div class="card-header">
+      <h2>{{post.title}}</h2>
+      <small>{{post.date | date: 'd MMMM yyyy, H:mm'}}</small>
+    </div>
+    <h3>{{post.author}}</h3>
+    <button
+      class="btn btn-dark"
+      [routerLink]="['/post', post.id]">Open post</button>
   </div>
 
-  <div>
-    <small>Author</small>
-  </div>
-
-  <button
-    class="btn btn-dark"
-    [routerLink]="['/post', 123]">Open</button>
 </div>
+
+<ng-template #loader_lg>
+  <app-loader size="lg"></app-loader>
+</ng-template>
