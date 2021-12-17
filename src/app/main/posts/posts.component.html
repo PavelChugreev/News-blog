@@ -5,9 +5,11 @@
       <small>{{post.date | date: 'd MMMM yyyy, H:mm'}}</small>
     </div>
     <h3>{{post.author}}</h3>
-    <button
-      class="btn btn-dark"
-      [routerLink]="['/post', post.id]">Open post</button>
+    <div class="open-btn">      
+      <button
+        class="btn btn-dark"
+        [routerLink]="['/post', post.id]">Open post</button>
+    </div>
   </div>
 
 </div>
