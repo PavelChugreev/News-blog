@@ -21,14 +21,14 @@
       <div class="post__actions">
         <button
           class="btn btn-dark"
-          routerLink="/admin/posts/{{post.id}}/edit"
+          routerLink="/admin/posts/{{post._id}}/edit"
           [queryParams]="{order: i + 1}"
           [disabled]="loading[i]">
           Edit
         </button>
         <button 
           class="btn btn-primary btn-del"
-          (click)="delete(post.id, i)"
+          (click)="delete(post._id, i)"
           [disabled]="loading[i]">
           <span *ngIf="!loading[i] else: loader_sm">Delete</span>
         </button>

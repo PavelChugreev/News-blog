@@ -15,54 +15,28 @@ export class PostService {
   ){}
 
   createPost (post: IPost): Observable<{[key: string]: any}> {
-    return this.http.post<IFbPostResponse>(`${env.dbUrl}/posts.json`, post)
-      .pipe(map((res: IFbPostResponse) => {
-        return {
-          ...post,
-          id: res.name,
-          date: new Date(post.date)
-        }
-      }))
+    return this.http.post<IFbPostResponse>(`${env.baseUrl}/api/posts/create`, post)
   }
 
-  getAllPosts (): Observable<IPost[] | null> {
-    return this.http.get(`${env.dbUrl}/posts.json`)
+  getAllPosts (): Observable<IPost[]> {
+    return this.http.get<{posts: IPost[]}>(`${env.baseUrl}/api/posts`)
     .pipe(
-      map((res: {[key: string]: any} | null) => {
-        if (!res) {
-          return null;
-        }
-        return Object.keys(res).map((key) => ({
-            ...res[key],
-            id: key,
-            date: new Date(res[key].date)
-          })
-        )
-      })
+      map((res) =>  res.posts)
     )
   }
 
   getPostById (id: string): Observable<IPost | null> {
-    return this.http.get<IPost | null>(`${env.dbUrl}/posts/${id}.json`)
+    return this.http.get<{post: IPost | null}>(`${env.baseUrl}/api/posts/${id}`)
       .pipe(
-        map((post): IPost | null => {
-          if(!post) {
-            return null;
-          }
-          return {
-            ...post,
-            id,
-            // date: new Date(post.date)
-          }
-        })
+        map((res): IPost | null => res.post)
       )
   }
 
   editPost (post: IPost): Observable<IPost | null> {
-    return this.http.patch<IPost | null>(`${env.dbUrl}/posts/${post.id}.json`, post);
+    return this.http.patch<IPost | null>(`${env.baseUrl}/api/posts/edit/${post._id}`, post);
   }
 
   deletePost (id: string): Observable<void> {
-    return this.http.delete<void>(`${env.dbUrl}/posts/${id}.json`);
+    return this.http.delete<void>(`${env.baseUrl}/api/posts/delete/${id}`);
   }
 }

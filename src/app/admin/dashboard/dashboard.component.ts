@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { finalize, Subscription } from 'rxjs';
+import { catchError, finalize, Subscription, throwError } from 'rxjs';
 import { AlertTypes, IPost } from 'src/app/shared/interfaces/interfaces';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { PostService } from 'src/app/shared/services/Post.service';
@@ -25,6 +25,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.postsSub = this.postService.getAllPosts()
+      .pipe(catchError((e) => {
+        this.posts = [];
+        return throwError(e)
+      }))
       .subscribe((posts) => {
         this.posts = posts || [];
 

@@ -1,7 +1,14 @@
 # News-blog
 
 ### [https://news-blog.com](https://pavelchugreev.github.io/News-blog/)
-### [Firebase hosting mirror](https://angular-blog-899f2.web.app/)
+
+### [API Repository](https://github.com/PavelChugreev/blog-api)
+___________
+
+### [API url](https://blog-api-mkyx.onrender.com/)
+[/api/posts](https://blog-api-mkyx.onrender.com/api/posts)  
+[/api/posts/:id](https://blog-api-mkyx.onrender.com/api/posts/64e8bc6553e2b97b81be8d09)
+____________
 
 ### About project:
 * News-blog app is the way to share your news, posts, experience etc
