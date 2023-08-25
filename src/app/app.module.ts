@@ -21,11 +21,11 @@ import { searchPosts } from './shared/pipes/search-posts.pipe';
 import { AlertComponent } from './shared/components/alert/alert.component';
 import { AlertService } from './shared/services/alert.service';
 
-const INTERCEPTOR_PROVIDER: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  multi: true,
-  useClass: AuthInterceptor
-}
+// const INTERCEPTOR_PROVIDER: Provider = {
+//   provide: HTTP_INTERCEPTORS,
+//   multi: true,
+//   useClass: AuthInterceptor
+// }
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     QuillModule.forRoot()
   ],
   providers: [
-    INTERCEPTOR_PROVIDER,
+    // INTERCEPTOR_PROVIDER,
     AlertService
   ],
   bootstrap: [AppComponent]

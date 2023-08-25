@@ -12,7 +12,7 @@ export class searchPosts implements PipeTransform {
       return posts.reverse();
     }
     return posts.filter( post => {
-      const str = `${post.id} ${post.author} ${post.title} ${post.date} ${post.content}`.toLowerCase();
+      const str = `${post._id} ${post.author} ${post.title} ${post.date} ${post.content}`.toLowerCase();
       return str.includes(searchVal.toLowerCase());
     }).reverse();
   }

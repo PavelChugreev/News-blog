@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { IPost } from 'src/app/shared/interfaces/interfaces';
+// @ts-ignore
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { FormService } from 'src/app/shared/services/Form.service';
 import { PostService } from 'src/app/shared/services/Post.service';
